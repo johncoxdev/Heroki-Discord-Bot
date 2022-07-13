@@ -47,6 +47,7 @@ module.exports = {
                 .setStyle("SUCCESS")
             )
 
-        return interaction.reply({ content: `${getRoleSelected}`, embeds: [inviteEmbed], components: [button] });
+        await interaction.channel.send({ content: `${getRoleSelected}`, embeds: [inviteEmbed], components: [button] });
+        return interaction.reply({ content: "Invite Created", ephemeral: true });
     },
 };
