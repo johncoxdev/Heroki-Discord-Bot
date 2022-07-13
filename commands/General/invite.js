@@ -8,14 +8,17 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('invite')
         .setDescription('Look for teammates. (You will tag the role!)')
-        .addStringOption(opt => opt
-            .setName("game")
-            .setDescription("game you need teammates for!")
-            .setRequired(true)),
+        .addRoleOption( opt => opt
+            .setName("gamerole")
+            .setDescription("The game you want to ping")
+            .setRequired(true)
+            ),
 
     async execute(interaction) {
         const unixTime = Math.floor((new Date().getTime()/1000) + 10*60)
         const serverExistdb = await Server.findOne({ where: { serverID: interaction.guild.id } });
+
+        if (interaction.channel.name !== "🎀game-invites") return interaction.reply({ content: "**[ERROR]:** You cannot do this command in this channel. Please go to #🎀game-invites", ephemeral: true })
 	
 		if (!serverExistdb) return interaction.reply({ content: "**[ERROR]:** Server not in database. Please use /setup!", ephemeral: true });
 
@@ -25,15 +28,13 @@ module.exports = {
 
         if (foundUser.userCommandBanned) return interaction.reply({ content: 'You are banned from using this command!', ephemeral: true });
 
-        const teammateRoleExist = await interaction.guild.roles.cache.find(role => role.name === "Mochi-Teammates");
+        const getRoleSelected = interaction.options.getRole("gamerole")
 
-        if (!teammateRoleExist) return interaction.reply({ content: "**[ERROR]:** Taggable role does not exist! Please use /setup!", ephemeral: true });
-        if (interaction.options.getString("game").length > 100) return interaction.reply({ content: 'Game title too long! Try again!', ephemeral: true });
-        
+        if (!getRoleSelected.name.endsWith("(Game)")) return interaction.reply({ content: "You cannot tag this role, chose a game role!", ephemeral: true });
 
         const inviteEmbed = new MessageEmbed()
         .setTitle("Game Invite!")
-        .setDescription(`${interaction.user} is looking for teammates for **${interaction.options.getString("game")}**!\n\n*Click the join button below to notify that you're wanting to join them!*`)
+        .setDescription(`${interaction.user} is looking for teammates for **${interaction.options.getRole("gamerole")}**!\n\n*Click the join button below to notify that you're wanting to join them!*`)
         .addField("__**Invite Expiration:**__", `<t:${unixTime}:R>`)
         .setColor("RANDOM")
         .setFooter({ text: `${interaction.user.id}` });
@@ -46,6 +47,6 @@ module.exports = {
                 .setStyle("SUCCESS")
             )
 
-        return interaction.reply({ content: `${teammateRoleExist}`, embeds: [inviteEmbed], components: [button] });
+        return interaction.reply({ content: `${getRoleSelected}`, embeds: [inviteEmbed], components: [button] });
     },
 };
