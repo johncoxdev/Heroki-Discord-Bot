@@ -1,3 +1,4 @@
+const { NONE } = require('sequelize');
 const Sequelize = require('sequelize');
 const sequelize = require('./initdb.js');
 
@@ -50,7 +51,11 @@ const User = sequelize.define('userdb', {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
         allowNull: false
-    }
+    },
+    userWarnHistory: {
+        type: Sequelize.JSON,
+        defaultValue: {}
+    },
 });
 
 module.exports = {
