@@ -16,12 +16,14 @@ module.exports = {
         .addIntegerOption( opt => opt
             .setName("severity")
             .setDescription("What is the severity of the problem [1-]")
-            .setRequired(true)
             .setMinValue(1)
-            .setMaxValue(4))
+            .setMaxValue(4)
+            .setRequired(true))
         .addStringOption( opt => opt
             .setName("reason")
             .setDescription("reason for warning")
+            .setMinLength(1)
+            .setMaxLength(250)
             .setRequired(true)),
 
     async execute(interaction) {
@@ -41,7 +43,6 @@ module.exports = {
         if (!getUser) return interaction.reply({ content: "Cannot find user in database!", ephemeral: true});
         if (victimUser.id === interaction.user.id) return interaction.reply({ content: "You cannot do this to yourself!", ephemeral: true});
         if (!victimMember.bannable) return interaction.reply({ content: "This person is not bannable!", ephemeral: true});
-        if (interaction.options.getString("reason").length > 250) return interaction.reply({ content: "Reason too long! Make it shorter (250 Characters max)", ephemeral: true});
 
         const dateObj = new Date();
         const month = dateObj.getMonth() + 1;

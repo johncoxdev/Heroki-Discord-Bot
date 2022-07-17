@@ -11,17 +11,18 @@ module.exports = {
         .addStringOption(opt => opt
             .setName("zip_code")
             .setDescription("[optional] - zipcode for local restaurant.")
-            .setRequired(false))
+            .setMinLength(1)
+            .setMaxLength(7))
         .addStringOption(opt => opt
             .setName("category")
             .setDescription("[optional] - Type of category of food you want (Ex: Mexican, French, Deli, Steakhouse)")
-            .setRequired(false))
+            .setMinLength(1)
+            .setMaxLength(30))
         .addIntegerOption(opt => opt
             .setName("price_amount_level")
             .setDescription("[optional] - the level of money you want to pay.")
             .setMinValue(1)
-            .setMaxValue(4)
-            .setRequired(false)),
+            .setMaxValue(4)),
 
     async execute(interaction) {
         let optionZipCode = interaction.options.getString("zip_code");

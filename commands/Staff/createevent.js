@@ -9,19 +9,27 @@ module.exports = {
         .addStringOption(opt => opt
             .setName("event_name")
             .setDescription("Name for the event")
-            .setRequired(true))
+            .setRequired(true)
+            .setMinLength(1)
+            .setMaxLength(100))
         .addStringOption(opt => opt
             .setName("event_time_in_unix")
             .setDescription("Date and time for the event (in UNIX)")
-            .setRequired(true))
+            .setRequired(true)
+            .setMinLength(1)
+            .setMaxLength(75))
         .addStringOption(opt => opt
             .setName("event_address")
             .setDescription("Address for event")
-            .setRequired(true))
+            .setRequired(true)
+            .setMinLength(1)
+            .setMaxLength(100))
         .addStringOption(opt => opt
             .setName("event_description")
             .setDescription("Description for event (info)")
-            .setRequired(true)),
+            .setRequired(true)
+            .setMinLength(1)
+            .setMaxLength(1750)),
 
     async execute(interaction) {
 

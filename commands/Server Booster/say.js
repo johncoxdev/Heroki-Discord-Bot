@@ -11,7 +11,9 @@ module.exports = {
         .addStringOption(opt => opt
 			.setName('message')
 			.setDescription('Your message')
-			.setRequired(true)),
+			.setRequired(true)
+            .setMinLength(1)
+            .setMaxLength(1750)),
 
     async execute(interaction) {
 
@@ -20,8 +22,6 @@ module.exports = {
         if (!getServerBoostRole) return interaction.reply({ content: "Command is only for server boosters! Try boosting the server to unlock this command!", ephemeral: true })
 
         const usersMessage = await interaction.options.getString('message')
-
-        if (usersMessage.length > 1750) return interaction.reply({ content: "Your message is too long! Retype your message!", ephemeral: true });
 
         const sayBoostEmbed = new MessageEmbed()
         .setDescription(`${interaction.user.username}: *${usersMessage}*`)
