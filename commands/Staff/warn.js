@@ -1,6 +1,6 @@
 
-const { SlashCommandBuilder, ComponentAssertions } = require('@discordjs/builders');
-const { MessageEmbed, Permissions } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { EmbedBuilder } = require('discord.js');
 const { User } = require('../../databases/userdb.js');
 const { Server } = require('../../databases/serverdb')
 
@@ -62,32 +62,66 @@ module.exports = {
 
         await getUser.update({ userWarnHistory: data });
 
-        const warningEmbed = new MessageEmbed()
+        const warningEmbed = new EmbedBuilder()
         .setTitle("INFRACTION!")
-        .addField("Severity Level:", `${severityLevel}`, true)
-        .addField("Reason:", `${infractionReason}`, true)
+        .addFields([
+            {
+                name: "Severity Level:", 
+                value: `${severityLevel}`, 
+                inline: true
+            },
+            {
+                name: "Reason:", 
+                value: `${infractionReason}`, 
+                inline: true
+            }
+        ])
         .setThumbnail(victimUser.displayAvatarURL());
         
         switch(interaction.options.getInteger("severity")){
             case 1:
                 let timoutTime = 5 * 60 * 1000;
-                warningEmbed.addField("Pubishment:", "Timeout 5 mins (Muted)!", true);
+                warningEmbed.addFields([
+                    {
+                        name: "Pubishment:",
+                        value: "Timeout 5 mins (Muted)!",
+                        inline: true
+                    }
+                ])
                 await victimMember.send({ embeds: [warningEmbed] });
                 await victimMember.timeout(timoutTime, `${infractionReason}`);
                 break;
             case 2:
                 timoutTime = 60 * 60 * 1000;
-                warningEmbed.addField("Pubishment:", "Timeout 1 hour (Muted)!", true);
+                warningEmbed.addFields([
+                    {
+                        name: "Pubishment:",
+                        value: "Timeout 1 hour (Muted)!",
+                        inline: true
+                    }
+                ])
                 await victimMember.send({ embeds: [warningEmbed] });
                 await victimMember.timeout(timoutTime, `${infractionReason}`);
                 break;
             case 3:
-                warningEmbed.addField("Pubishment:", "Kicked from server!", true);
+                warningEmbed.addFields([
+                    {
+                        name: "Pubishment:",
+                        value: "Kicked from server!",
+                        inline: true
+                    }
+                ])
                 await victimMember.send({ embeds: [warningEmbed] });
                 await victimMember.kick(`${infractionReason}`);
                 break;
             case 4:
-                warningEmbed.addField("Pubishment:", "Ban from server!", true);
+                warningEmbed.addFields([
+                    {
+                        name: "Pubishment:",
+                        value: "Ban from server!",
+                        inline: true
+                    }
+                ])
                 await victimMember.send({ embeds: [warningEmbed] });
                 await victimMember.ban({deleteMessageDays: 7, reason: `${infractionReason}` });
                 break;

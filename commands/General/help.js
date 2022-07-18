@@ -1,20 +1,20 @@
 const fs = require('node:fs');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, Colors } = require('discord.js');
 
 function getButtonStatus(pageID, length){
-    const buttons = new MessageActionRow()
+    const buttons = new ActionRowBuilder()
         .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setCustomId('help_previous_page')
                 .setEmoji('⏪')
-                .setStyle("PRIMARY")
+                .setStyle(1)
                 .setDisabled(pageID === 0))
         .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setCustomId('help_next_page')
                 .setEmoji('⏩')
-                .setStyle("PRIMARY")
+                .setStyle(1)
                 .setDisabled(pageID === length - 1))
     return buttons
 }
@@ -27,10 +27,10 @@ async function createEmbeds(commandData){
             finalString = finalString.concat(`/${index[0]} - ${index[1]}\n`)
         }
         embeds.push(
-            new MessageEmbed()
+            new EmbedBuilder()
             .setTitle(`${key.replace("_", " ")} Commands`)
             .setDescription(`${finalString}`)
-            .setColor("RANDOM")
+            .setColor(Colors.LuminousVividPink)
         )
     }
     for (let i = 0; i < embeds.length; i++){

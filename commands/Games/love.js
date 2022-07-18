@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = {
     category: 'General',
@@ -23,10 +23,10 @@ module.exports = {
         heartAmount = heartAmount.repeat(Math.random()*11)
         blankSpace = blankSpace.repeat(10 - heartAmount.length/2)
 
-        const loveEmbed = new MessageEmbed()
+        const loveEmbed = new EmbedBuilder()
         .setTitle(`How much does ${interaction.user.username} love ${getUser.username}?`)
         .setDescription(`Love Meter: ${heartAmount}${blankSpace}`)
-        .setColor(16736498);
+        .setColor(Colors.Red);
 
         await interaction.reply({ embeds: [loveEmbed] })
     },

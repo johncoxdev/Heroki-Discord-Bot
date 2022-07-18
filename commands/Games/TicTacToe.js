@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageButton } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder } = require('discord.js');
 const { User } = require('../../databases/userdb');
 
 async function checkGame(newButtons, player){
@@ -52,12 +52,12 @@ module.exports = {
         if (getOpponent.user.bot || getOpponent.presence === null) return interaction.reply("You cannot choose this person. You've either chosen a bot, or this person is offline! Try someone else.")
 
         for (let i = 0; i < 3; i++){
-            let actionRow = new MessageActionRow()
+            let actionRow = new ActionRowBuilder()
             for (let i = 0; i < 3; i++){
-                actionRow.addComponents(new MessageButton()
+                actionRow.addComponents(new ButtonBuilder()
                     .setCustomId(String(count))
                     .setLabel(" ")
-                    .setStyle("SECONDARY"))
+                    .setStyle(2))
                 count++
             }
             buttons.push(actionRow)

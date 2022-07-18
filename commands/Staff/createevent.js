@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed, Permissions, MessageActionRow, MessageButton } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 
 module.exports = {
     category: 'Staff',
@@ -41,33 +41,47 @@ module.exports = {
 
         interaction.reply({ content: "Event created!", ephemeral: true })
 
-        const eventEmbed = new MessageEmbed()
+        const eventEmbed = new EmbedBuilder()
             .setTitle(interaction.options.getString("event_name"))
             .setDescription(`**Event Description:** ${interaction.options.getString("event_description")}
             \n**Date & Time:** <t:${interaction.options.getString("event_time_in_unix")}:F>\n**Address:** ${interaction.options.getString("event_address")}\n`)
-            .addField("[✅] Attending:", "List:", true)
-            .addField("[🤷‍♂️] Maybe:", "List:", true)
-            .addField("[❌] Not attending:", "List:", true)
+            .addFields([
+                {
+                    name: "[✅] Attending:",
+                    value: "List:", 
+                    inline: true
+                },
+                {
+                    name: "[🤷‍♂️] Maybe:", 
+                    value: "List:", 
+                    inline: true
+                },
+                {
+                    name: "[❌] Not attending:", 
+                    value: "List:", 
+                    inline: true
+                }
+            ])
             .setFooter({ text:`Event created by: ${interaction.user.username}`, iconURL:`${interaction.user.displayAvatarURL()}` })
             .setColor("RANDOM")
         
-        const buttons = new MessageActionRow()
+        const buttons = new ActionRowBuilder()
         .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setCustomId('attending_event')
                 .setLabel('[✅] Going')
-                .setStyle("SUCCESS"))
+                .setStyle(3))
         .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setCustomId('maybe_attending_event')
                 .setLabel('[🤷‍♂️] Maybe')
-                .setStyle('PRIMARY')
+                .setStyle(1)
         )
         .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setCustomId('not_attending_event')
                 .setLabel('[❌] Not Going')
-                .setStyle('DANGER')
+                .setStyle(4)
         )
         interaction.channel.send({ embeds: [eventEmbed], components: [buttons]})
     },

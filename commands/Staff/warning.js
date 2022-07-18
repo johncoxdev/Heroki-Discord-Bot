@@ -1,6 +1,6 @@
 
-const { SlashCommandBuilder, ComponentAssertions } = require('@discordjs/builders');
-const { MessageEmbed, Permissions } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { EmbedBuilder, Colors } = require('discord.js');
 const { User } = require('../../databases/userdb.js');
 const { Server } = require('../../databases/serverdb')
 
@@ -33,21 +33,33 @@ module.exports = {
         const totalWarnings = Object.keys(data).length;
 
 
-        const warningsEmbed = new MessageEmbed()
-        .setColor("RANDOM")
+        const warningsEmbed = new EmbedBuilder()
+        .setColor(Colors.LuminousVividPink)
         .setTitle(`${victimUser.username} Warnings`)
         .setDescription(`Total Warnings: ${totalWarnings} \nShowing first 6 warnings!`)
         .setThumbnail(victimUser.displayAvatarURL());
 
         if (totalWarnings === 0){
-            warningsEmbed.addField("Warnings:", "None", true);
+            warningsEmbed.addFields([
+                {
+                    name: "Warnings:",
+                    value: "None",
+                    inline: true
+                }
+            ])
             return interaction.reply({ embeds: [warningsEmbed] });
         }
 
         let count = 1
         for (const x in data){
             if (count === 6) break;
-            warningsEmbed.addField(`Warning #${count}`, `Severity: ${data[x].severity}\nReason: ${data[x].reason}\nDate: ${data[x].date}`, true)
+            warningsEmbed.addFields([
+                {
+                    name: `Warning #${count}`,
+                    value: `Severity: ${data[x].severity}\nReason: ${data[x].reason}\nDate: ${data[x].date}`,
+                    inline: true
+                }
+            ])
             count++
         }
 

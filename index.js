@@ -1,16 +1,16 @@
 const fs = require('node:fs');
-const { Client, Collection } = require('discord.js');
+const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
 const { TOKEN } = require('./botconfig.json');
 
 
 let client = new Client({
 	allowedMentions: { parse: ['roles', 'users'], repliedUser: true }, 
     intents: [
-        "GUILDS",
-		"GUILD_MESSAGES",
-		"GUILD_MEMBERS",
-		"GUILD_VOICE_STATES",
-		"GUILD_PRESENCES"
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.GuildMembers,
+		GatewayIntentBits.GuildVoiceStates,
+		GatewayIntentBits.GuildPresences
     ]
 });
 

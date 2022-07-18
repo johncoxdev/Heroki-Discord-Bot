@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Permissions } = require('discord.js');
 const { User } = require('../../databases/userdb.js');
 const { Server } = require('../../databases/serverdb.js');
 

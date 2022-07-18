@@ -1,6 +1,6 @@
 const { YELP_APIKEY } = require('../../botconfig.json');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 let yelpAPI = require('yelp-api');
 
 module.exports = {
@@ -67,10 +67,10 @@ module.exports = {
             const restaurant_price = (business.location) ? business.price : "N/A"
             const restaurant_rating = (business.rating) ? `${business.rating}/5` : "N/A"
 
-            const successEmbed = new MessageEmbed()
+            const successEmbed = new EmbedBuilder()
             .setTitle(restaurant_name)
             .setURL(restaurant_link)
-            .setColor("RANDOM")
+            .setColor(Colors.LuminousVividPink)
             .setThumbnail(restaurant_image)
             .setDescription(`
             **Address:** ${restaurant_location}       
@@ -84,10 +84,10 @@ module.exports = {
             interaction.reply({ content: `Random restaurant for ${optionZipCode}`, embeds: [successEmbed] });
         })
         .catch(err => {
-            const errorEmbed = new MessageEmbed()
+            const errorEmbed = new EmbedBuilder()
             .setTitle("There was an error!")
             .setDescription("There was an error! \nPossible reasons:\n- Invalid zipcode \n- Invalid category \n- Maxed out wesbite response for the day")
-            .setColor("RED");
+            .setColor(Colors.Red);
 
             interaction.reply({ embeds: [errorEmbed] })
         });

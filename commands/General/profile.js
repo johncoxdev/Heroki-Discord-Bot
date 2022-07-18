@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 const { Server } = require('../../databases/serverdb');
 const { User } = require('../../databases/userdb');
 
@@ -38,13 +38,27 @@ module.exports = {
         const TotalGames = foundUser.get('userTotalGames');
         const TotalPercentage = ((TotalWins/TotalGames)*100) ? parseInt((TotalWins/TotalGames)*100) : "0";
 
-        const profileEmbed = new MessageEmbed()
-            .setColor("RANDOM")
+        const profileEmbed = new EmbedBuilder()
+            .setColor(Colors.LuminousVividPink)
             .setThumbnail(getUserOption.displayAvatarURL())
             .setTitle(`${getUserOption.username}'s Profile`)
-            .addField("RPS Winrate:", `${RPSWins}/${RPSTotalGames} (\`${RPSPercentage}%\`)`, true)
-            .addField("TTT Winrate:", `${TTTWins}/${TTTTotalGames} (\`${TTTPercentage}%\`)`, true)
-            .addField("All-Time Winrate:", `${TotalWins}/${TotalGames} (\`${TotalPercentage}%\`)`, true);
+            .addFields([
+                {
+                    name: "RPS Winrate:", 
+                    value: `${RPSWins}/${RPSTotalGames} (\`${RPSPercentage}%\`)`, 
+                    inline: true
+                },
+                {
+                    name: "TTT Winrate:",
+                    value: `${TTTWins}/${TTTTotalGames} (\`${TTTPercentage}%\`)`, 
+                    inline: true
+                },
+                {
+                    name: "All-Time Winrate:", 
+                    value: `${TotalWins}/${TotalGames} (\`${TotalPercentage}%\`)`, 
+                    inline: true
+                }
+            ]);
 
         interaction.reply({ embeds: [profileEmbed] });
     },

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, Colors } = require('discord.js');
 const { User } = require('../../databases/userdb');
 
 async function checkGame(bot, member){
@@ -47,34 +47,34 @@ module.exports = {
             
             const gameDecision = await checkGame(botChoice, getInitialChoice)
 
-            const gameEmbed = new MessageEmbed()
+            const gameEmbed = new EmbedBuilder()
                 .setTitle("Rock, Paper, Scissors")
                 .setDescription(`(${interaction.options.getString("choice")}) ${interaction.user.username} *VS* Bot (${botChoice}) \n**Results:** __${gameDecision}__`)
-                .setColor("RANDOM")
+                .setColor(Colors.LuminousVividPink)
 
             return await interaction.reply({embeds: [gameEmbed] })
         }
 
         if (getUser.presence === null) return interaction.reply({ content: "This user is offline. You cannot pick them!", ephemeral: true })
 
-        const buttons = new MessageActionRow()
+        const buttons = new ActionRowBuilder()
             .addComponents(
                 new MessageButton()
                     .setCustomId("rock")
                     .setLabel("🗿-Rock")
-                    .setStyle("PRIMARY"))
+                    .setStyle(1))
             .addComponents(
                 new MessageButton()
                     .setCustomId("paper")
                     .setLabel("📜-Paper")
-                    .setStyle("PRIMARY"))
+                    .setStyle(1))
             .addComponents(
-                new MessageButton()
+                new ButtonBuilder()
                     .setCustomId("scissor")
                     .setLabel("✂️-Scissor")
-                    .setStyle("PRIMARY"));
+                    .setStyle(1));
 
-        const challengeEmbed = new MessageEmbed()
+        const challengeEmbed = new EmbedBuilder()
             .setTitle("New Challenge!")
             .setDescription(`${getUser}, please choose one of your options below! \n*You have 15 seconds to respond!*`);
 
@@ -89,7 +89,12 @@ module.exports = {
 
             challengeEmbed.title = undefined
             challengeEmbed.description = undefined
-            challengeEmbed.addField("Results:", ` (${i.customId}) ${getUser} is the **${gameDecision}** against ${interaction.user} (${getInitialChoice})`)
+            challengeEmbed.addFields([
+                {
+                name: "Results:",
+                value: ` (${i.customId}) ${getUser} is the **${gameDecision}** against ${interaction.user} (${getInitialChoice})`
+                }
+            ])
             
             const getOpponent = await User.findOne({ where: { userID: getUser.id } });
             const getPlayer = await User.findOne ({ where: { userID: interaction.user.id } })

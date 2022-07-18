@@ -1,7 +1,9 @@
+const { InteractionType } = require('discord.js');
+
 module.exports = {
 	name: 'interactionCreate',
 	execute(interaction, commands) {
-		if (!interaction.isCommand()) return;
+		if (interaction.type !== InteractionType.ApplicationCommand) return;
 
 		const command = commands.get(interaction.commandName);
 

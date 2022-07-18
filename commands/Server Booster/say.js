@@ -1,6 +1,6 @@
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 
 
 module.exports = {
@@ -23,9 +23,9 @@ module.exports = {
 
         const usersMessage = await interaction.options.getString('message')
 
-        const sayBoostEmbed = new MessageEmbed()
+        const sayBoostEmbed = new EmbedBuilder()
         .setDescription(`${interaction.user.username}: *${usersMessage}*`)
-        .setColor(16736498);
+        .setColor(Colors.LuminousVividPink);
 
         await interaction.reply({ embeds: [sayBoostEmbed] })
     },

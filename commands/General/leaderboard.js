@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 const { User } = require('../../databases/userdb.js');
 
 module.exports = {
@@ -22,12 +22,26 @@ module.exports = {
             order: [['userTotalWins', 'DESC']]
         });
 
-        const leaderboardEmbed = new MessageEmbed()
+        const leaderboardEmbed = new EmbedBuilder()
         .setTitle('Leaderboards')
-        .setColor("RANDOM")
-        .addField("RPS Top Winners", "loading...", true)
-        .addField("TTT Top Winners", "loading...", true)
-        .addField("All-time Top Winners", "loading...", true);
+        .setColor(Colors.LuminousVividPink)
+        .addFields([
+            {
+                name: "RPS Top Winners", 
+                value: "loading...", 
+                inline: true
+            },
+            {
+                name: "TTT Top Winners",
+                value: "loading...",
+                inline: true
+            },
+            {
+                name: "All-time Top Winners",
+                value: "loading...",
+                inline: true
+            }
+        ])
 
         for (let i = 0; i < leaderboardEmbed.fields.length; i++){
             leaderboardEmbed.fields[i].value = leaderboardEmbed.fields[i].value.split("loading...").pop()
