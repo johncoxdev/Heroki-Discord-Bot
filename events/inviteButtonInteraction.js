@@ -11,9 +11,9 @@ module.exports = {
 
 			// Check if invite is expired, if so, remove button
 			if (Math.floor((new Date().getTime()/1000)) > interaction.message.embeds[0].fields[0].value.slice(3, -3)) {
-				embed.description = "This invite has expired!"
-				embed.title = "~~Game Invite~~"
-				embed.fields = undefined
+				embed.data.description = "This invite has expired!"
+				embed.data.title = "~~Game Invite~~"
+				embed.data.fields = undefined
 				await message.edit({ embeds: [embed], components: [] }).catch(err => interaction.channel.send("Message is gone, cannot edit!"))
 				return interaction.reply({ content: "Sorry, this invite has expired! Removing invite button!", ephemeral: true })
 			}
