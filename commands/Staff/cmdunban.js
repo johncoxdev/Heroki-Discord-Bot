@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { User } = require('../../databases/userdb.js');
 const { Server } = require('../../databases/serverdb.js');
+const { PermissionsBitField } = require('discord.js');
 
 module.exports = {
     category: 'Staff',
@@ -13,7 +14,7 @@ module.exports = {
             .setRequired(true)),
         
     async execute(interaction) {
-        if (!interaction.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)){
+        if (!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)){
             return interaction.reply({ content: 'Invalid Permissions. (`BAN_MEMBERS`)', ephemeral: true });
         }
 

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Permissions } = require('discord.js');
+const { PermissionsBitField } = require('discord.js');
 const { User, addMemberDatabase } = require('../../databases/userdb.js');
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
 		.setDescription('Iterate through all members and add all members who may not be a part of the database.'),
 		
 	async execute(interaction) {
-        if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){
+        if (!interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)){
             return interaction.reply({ content: 'Invalid Permissions. (`ADMINISTRATOR`)', ephemeral: true });
         }
 

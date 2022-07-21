@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, PermissionsBitField } = require('discord.js');
 
 module.exports = {
     category: 'Staff',
@@ -33,7 +33,7 @@ module.exports = {
 
     async execute(interaction) {
 
-        if (!interaction.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) return interaction.reply({ content: "You don't have permissions to do this command (`KICK_MEMBERS`)", ephemeral: true })
+        if (!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) return interaction.reply({ content: "You don't have permissions to do this command (`KICK_MEMBERS`)", ephemeral: true })
 
         const total_chars = interaction.options.getString("event_description").length + interaction.options.getString("event_time_in_unix").length + interaction.options.getString('event_address').length
 
