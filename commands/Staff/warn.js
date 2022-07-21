@@ -15,7 +15,7 @@ module.exports = {
             .setRequired(true))
         .addIntegerOption( opt => opt
             .setName("severity")
-            .setDescription("What is the severity of the problem [1-]")
+            .setDescription("What is the severity of the problem [1-4]")
             .setMinValue(1)
             .setMaxValue(4)
             .setRequired(true))
