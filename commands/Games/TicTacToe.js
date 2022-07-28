@@ -28,6 +28,7 @@ async function checkGame(newButtons, player){
 }
 
 module.exports = {
+    enabled: true,
     category: 'Game',
     data: new SlashCommandBuilder()
         .setName('ttt')

@@ -5,6 +5,7 @@ const Serverdb = require('../../databases/serverdb.js');
 var teammateRoleExist
 
 module.exports = {
+    enabled: true,
     category: 'Staff',
 	data: new SlashCommandBuilder()
         .setName('setup')

@@ -3,6 +3,7 @@ const { EmbedBuilder, Colors } = require('discord.js');
 const { User } = require('../../databases/userdb.js');
 
 module.exports = {
+    enabled: true,
     category: 'General',
     data: new SlashCommandBuilder()
         .setName('leaderboard')
@@ -24,7 +25,7 @@ module.exports = {
 
         const leaderboardEmbed = new EmbedBuilder()
         .setTitle('Leaderboards')
-        .setColor(Colors.LuminousVividPink)
+        .setColor(Colors.DarkPurple)
         .addFields([
             {
                 name: "RPS Top Winners", 

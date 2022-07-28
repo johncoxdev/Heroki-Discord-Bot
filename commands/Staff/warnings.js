@@ -5,6 +5,7 @@ const { User } = require('../../databases/userdb.js');
 const { Server } = require('../../databases/serverdb')
 
 module.exports = {
+    enabled: true,
     category: 'Staff',
     data: new SlashCommandBuilder()
         .setName('warnings')
@@ -34,7 +35,7 @@ module.exports = {
 
 
         const warningsEmbed = new EmbedBuilder()
-        .setColor(Colors.LuminousVividPink)
+        .setColor(Colors.DarkPurple)
         .setTitle(`${victimUser.username} Warnings`)
         .setDescription(`Total Warnings: ${totalWarnings} \nShowing first 6 warnings!`)
         .setThumbnail(victimUser.displayAvatarURL());

@@ -4,6 +4,7 @@ const { Server } = require('../../databases/serverdb.js');
 const { User } = require('../../databases/userdb.js');
 
 module.exports = {
+    enabled: false,
     category: 'General',
     data: new SlashCommandBuilder()
         .setName('invite')
@@ -41,7 +42,7 @@ module.exports = {
             value: `<t:${unixTime}:R>`
             }
         ])
-        .setColor(Colors.LuminousVividPink)
+        .setColor(Colors.DarkPurple)
         .setFooter({ text: `${interaction.user.id}` });
 
         const button = new ActionRowBuilder()

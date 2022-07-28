@@ -4,6 +4,7 @@ const { Server } = require('../../databases/serverdb.js');
 const { PermissionsBitField } = require('discord.js');
 
 module.exports = {
+    enabled: false,
     category: 'Staff',
     data: new SlashCommandBuilder()
         .setName('cmdban')

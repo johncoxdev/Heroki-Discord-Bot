@@ -30,7 +30,7 @@ async function createEmbeds(commandData){
             new EmbedBuilder()
             .setTitle(`${key.replace("_", " ")} Commands`)
             .setDescription(`${finalString}`)
-            .setColor(Colors.LuminousVividPink)
+            .setColor(Colors.DarkPurple)
         )
     }
     for (let i = 0; i < embeds.length; i++){
@@ -49,6 +49,7 @@ async function createEmbeds(commandData){
 
 
 module.exports = {
+    enabled: true,
     category: 'General',
     data: new SlashCommandBuilder()
         .setName('help')
@@ -70,7 +71,9 @@ module.exports = {
             const commandFiles = fs.readdirSync(`./commands/${subFolder}`).filter(file => file.endsWith('.js'));
             for (const file of commandFiles){
                 const cmd = require(`../../commands/${subFolder}/${file}`)
-                commandData[cmd.category].push([cmd.data.name, cmd.data.description])
+                if (cmd.enabled){
+                    commandData[cmd.category].push([cmd.data.name, cmd.data.description])
+                }
             }
         }
 

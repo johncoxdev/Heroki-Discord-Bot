@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, PermissionsBitField } = require('discord.js');
 
 module.exports = {
+    enabled: true,
     category: 'Staff',
     data: new SlashCommandBuilder()
         .setName('createevent')

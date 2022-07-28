@@ -4,6 +4,7 @@ const { EmbedBuilder, Colors } = require('discord.js');
 let yelpAPI = require('yelp-api');
 
 module.exports = {
+    enabled: true,
     category: 'General',
     data: new SlashCommandBuilder()
         .setName("random_restaurant")
@@ -70,7 +71,7 @@ module.exports = {
             const successEmbed = new EmbedBuilder()
             .setTitle(restaurant_name)
             .setURL(restaurant_link)
-            .setColor(Colors.LuminousVividPink)
+            .setColor(Colors.DarkPurple)
             .setThumbnail(restaurant_image)
             .setDescription(`
             **Address:** ${restaurant_location}       

@@ -11,6 +11,7 @@ async function checkGame(bot, member){
 }
 
 module.exports = {
+    enabled: true,
     category: 'Game',
     data: new SlashCommandBuilder()
         .setName('rps')
@@ -50,7 +51,7 @@ module.exports = {
             const gameEmbed = new EmbedBuilder()
                 .setTitle("Rock, Paper, Scissors")
                 .setDescription(`(${interaction.options.getString("choice")}) ${interaction.user.username} *VS* Bot (${botChoice}) \n**Results:** __${gameDecision}__`)
-                .setColor(Colors.LuminousVividPink)
+                .setColor(Colors.DarkPurple)
 
             return await interaction.reply({embeds: [gameEmbed] })
         }

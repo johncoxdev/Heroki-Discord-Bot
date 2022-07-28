@@ -5,6 +5,7 @@ const { User } = require('../../databases/userdb');
 
 
 module.exports = {
+    enabled: true,
     category: 'General',
     data: new SlashCommandBuilder()
         .setName('profile')
@@ -39,7 +40,7 @@ module.exports = {
         const TotalPercentage = ((TotalWins/TotalGames)*100) ? parseInt((TotalWins/TotalGames)*100) : "0";
 
         const profileEmbed = new EmbedBuilder()
-            .setColor(Colors.LuminousVividPink)
+            .setColor(Colors.DarkPurple)
             .setThumbnail(getUserOption.displayAvatarURL())
             .setTitle(`${getUserOption.username}'s Profile`)
             .addFields([

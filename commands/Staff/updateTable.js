@@ -3,6 +3,7 @@ const { PermissionsBitField } = require('discord.js');
 const { User, addMemberDatabase } = require('../../databases/userdb.js');
 
 module.exports = {
+    enabled: true,
 	category: 'Staff',
 	data: new SlashCommandBuilder()
 		.setName('update_table')

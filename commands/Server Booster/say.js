@@ -4,6 +4,7 @@ const { EmbedBuilder, Colors } = require('discord.js');
 
 
 module.exports = {
+    enabled: true,
     category: 'Server Booster',
     data: new SlashCommandBuilder()
         .setName('say')
@@ -25,7 +26,7 @@ module.exports = {
 
         const sayBoostEmbed = new EmbedBuilder()
         .setDescription(`${interaction.user.username}: *${usersMessage}*`)
-        .setColor(Colors.LuminousVividPink);
+        .setColor(Colors.DarkPurple);
 
         await interaction.reply({ embeds: [sayBoostEmbed] })
     },

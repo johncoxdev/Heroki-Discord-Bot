@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = {
+    enabled: true,
     category: 'General',
     data: new SlashCommandBuilder()
         .setName('love')
