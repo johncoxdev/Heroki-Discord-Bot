@@ -1,22 +1,22 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { ActionRowBuilder, ButtonBuilder } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { User } = require('../../databases/userdb');
 
 async function checkGame(newButtons, player){
-    const allEl = (el) => el != 'SECONDARY';
+    const allEl = (el) => el != ButtonStyle.Secondary;
     const isFilled = newButtons.every(allEl)
     if (
         //horizontal
-        ((newButtons[0] === player[2] && newButtons[1] === player[2] && newButtons[2] === player[2])) ||
-        ((newButtons[3] === player[2] && newButtons[4] === player[2] && newButtons[5] === player[2])) ||
-        ((newButtons[6] === player[2] && newButtons[7] === player[2] && newButtons[8] === player[2])) || 
+        ((newButtons[0] == player[2] && newButtons[1] == player[2] && newButtons[2] == player[2])) ||
+        ((newButtons[3] == player[2] && newButtons[4] == player[2] && newButtons[5] == player[2])) ||
+        ((newButtons[6] == player[2] && newButtons[7] == player[2] && newButtons[8] == player[2])) || 
         //vertical
-        ((newButtons[0] === player[2] && newButtons[3] === player[2] && newButtons[6] === player[2])) ||
-        ((newButtons[1] === player[2] && newButtons[4] === player[2] && newButtons[7] === player[2])) ||
-        ((newButtons[2] === player[2] && newButtons[5] === player[2] && newButtons[8] === player[2])) ||
+        ((newButtons[0] == player[2] && newButtons[3] == player[2] && newButtons[6] == player[2])) ||
+        ((newButtons[1] == player[2] && newButtons[4] == player[2] && newButtons[7] == player[2])) ||
+        ((newButtons[2] == player[2] && newButtons[5] == player[2] && newButtons[8] == player[2])) ||
         //diagnol
-        ((newButtons[0] === player[2] && newButtons[4] === player[2] && newButtons[8] === player[2])) ||
-        ((newButtons[2] === player[2] && newButtons[4] === player[2] && newButtons[6] === player[2]))
+        ((newButtons[0] == player[2] && newButtons[4] == player[2] && newButtons[8] == player[2])) ||
+        ((newButtons[2] == player[2] && newButtons[4] == player[2] && newButtons[6] == player[2]))
         ) {
             return [1, player[0]]
         } else if (isFilled) {
@@ -43,8 +43,8 @@ module.exports = {
         const getOpponent = interaction.options.getMember('user');
         const playerEmote = "❌"
         const opponentEmote = "⭕" 
-        const playerColor = "DANGER" //red
-        const opponentColor  = "PRIMARY" //blue
+        const playerColor = ButtonStyle.Danger //red
+        const opponentColor  = ButtonStyle.Primary //blue
         const msg = `${getPlayer} has challenged ${getOpponent} to a game of __**Tic-Tac-Toe**__ \n*${getPlayer} will start the game!*\n**Warning:** You have 30 seconds per play!`
         let buttons = [] 
         let count = 1
@@ -58,7 +58,7 @@ module.exports = {
                 actionRow.addComponents(new ButtonBuilder()
                     .setCustomId(String(count))
                     .setLabel(" ")
-                    .setStyle(2))
+                    .setStyle(ButtonStyle.Secondary))
                 count++
             }
             buttons.push(actionRow)
@@ -75,12 +75,12 @@ module.exports = {
             let buttonList = []
             for (let x of buttons){
                 for (let y of x.components){
-                    if (i.customId === y.customId){
-                        y.label = currentPlayer[1];
-                        y.style = currentPlayer[2];
-                        y.disabled = true;
+                    if (i.customId === y.data.custom_id){
+                        y.data.label = currentPlayer[1];
+                        y.data.style = currentPlayer[2];
+                        y.data.disabled = true;
                     }
-                    buttonList.push(String(y.style))
+                    buttonList.push(String(y.data.style))
                 }
             }
 
