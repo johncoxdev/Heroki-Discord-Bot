@@ -24,7 +24,7 @@ module.exports = {
             .setTitle("**꒦꒷︶꒷︶꒦꒷ NEW SERVER BOOST ꒷꒦︶꒷︶꒷꒦**")
             .setDescription(`${newMember.user} **has boosted the server! Thank you! \nCheck out #📰︱information to see the perks you're not eligible for!**\nServer Boosters: ${newMember.guild.premiumSubscriptionCount}\nServer Tier: ${serverTier}`)
             .setColor(Colors.DarkPurple)
-            .setThumbnail('https://i.imgur.com/DzMgO98.gifv')
+            .setThumbnail('https://i.imgur.com/DzMgO98.gif')
 
             await fetchedChannel.send({ embeds: [serverBoostEmbed] })
         }

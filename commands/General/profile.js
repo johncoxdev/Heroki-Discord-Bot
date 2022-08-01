@@ -29,6 +29,7 @@ module.exports = {
         
         if (!foundUser) return interaction.reply({ content: "**[ERROR]:** You are not in the database! Tell a staff member to add you to it!", ephemeral: true });
 
+        const BumpPoints = foundUser.get("userTotalBumps");
         const RPSWins = foundUser.get('userWinsRPS');
         const RPSTotalGames = foundUser.get('userTotalRPSGames');
         const RPSPercentage = ((RPSWins/RPSTotalGames)*100) ?  parseInt((RPSWins/RPSTotalGames)*100) : "0";
@@ -44,6 +45,11 @@ module.exports = {
             .setThumbnail(getUserOption.displayAvatarURL())
             .setTitle(`${getUserOption.username}'s Profile`)
             .addFields([
+                {
+                    name: "Bump Points:",
+                    value: `${BumpPoints}`,
+                    inline: false
+                },
                 {
                     name: "RPS Winrate:", 
                     value: `${RPSWins}/${RPSTotalGames} (\`${RPSPercentage}%\`)`, 

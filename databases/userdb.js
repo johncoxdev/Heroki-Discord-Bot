@@ -1,4 +1,3 @@
-const { NONE } = require('sequelize');
 const Sequelize = require('sequelize');
 const sequelize = require('./initdb.js');
 
@@ -56,6 +55,14 @@ const User = sequelize.define('userdb', {
         type: Sequelize.JSON,
         defaultValue: {}
     },
+    userTotalBumps: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    userCommandCooldown: {
+        type: Sequelize.STRING,
+        defaultValue: ""
+    }
 });
 
 module.exports = {
