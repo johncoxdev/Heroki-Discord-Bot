@@ -60,12 +60,12 @@ module.exports = {
 
         const buttons = new ActionRowBuilder()
             .addComponents(
-                new MessageButton()
+                new ButtonBuilder()
                     .setCustomId("rock")
                     .setLabel("🗿-Rock")
                     .setStyle(1))
             .addComponents(
-                new MessageButton()
+                new ButtonBuilder()
                     .setCustomId("paper")
                     .setLabel("📜-Paper")
                     .setStyle(1))
@@ -83,13 +83,13 @@ module.exports = {
 
         const filter = i => i.user.id === getUser.id && i.message.id === sentMessage.id;
 
-        const collector = interaction.channel.createMessageComponentCollector({filter, time: 10000 });
+        const collector = interaction.channel.createMessageComponentCollector({filter, time: 15000 });
 
         collector.on('collect', async i => {
             const gameDecision = await checkGame(getInitialChoice, i.customId)
 
-            challengeEmbed.title = undefined
-            challengeEmbed.description = undefined
+            challengeEmbed.data.title = undefined
+            challengeEmbed.data.description = undefined
             challengeEmbed.addFields([
                 {
                 name: "Results:",
@@ -99,7 +99,6 @@ module.exports = {
             
             const getOpponent = await User.findOne({ where: { userID: getUser.id } });
             const getPlayer = await User.findOne ({ where: { userID: interaction.user.id } })
-
 
             if (!getOpponent && !getPlayer) return i.update({ content: "Game completed", embeds: [challengeEmbed], components: [] });
 
@@ -124,12 +123,12 @@ module.exports = {
 
         collector.on('end', async i => {
             if (i.size === undefined || i.size === 0){
-                challengeEmbed.title = undefined
-                challengeEmbed.description = undefined
-                challengeEmbed.fields = undefined
+                challengeEmbed.data.title = undefined
+                challengeEmbed.data.description = undefined
+                challengeEmbed.data.fields = undefined
                 challengeEmbed.setTitle("Game Cancelled!")
                 challengeEmbed.setDescription(` ${getUser} did not respond!`)
-                return sentMessage.edit({ embeds: [challengeEmbed], components: [] })
+                return sentMessage.edit({ content: "Game canelled", embeds: [challengeEmbed], components: [] })
             }
         });
         

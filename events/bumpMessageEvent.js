@@ -7,6 +7,9 @@ module.exports = {
                 if (message.author.username !== "DISBOARD") return;
 
                 messageEmbed = message.embeds[0];
+
+                if (messageEmbed === undefined) return;
+
                 embedDescription = messageEmbed.data.description;
 
                 if (!embedDescription.includes("Bump done!")) return;
